@@ -16,7 +16,7 @@ var (
 	OPENING_FILE_SIZE = fyne.NewSize(620, 504)
 )
 
-type MyApp struct {
+type DownloadIt struct {
 	app         fyne.App
 	window      fyne.Window
 	mainTitle   *widget.Label
@@ -32,7 +32,7 @@ func main() {
 	app.run()
 }
 
-func NewApp() *MyApp {
+func NewApp() *DownloadIt {
 	app := app.New()
 	window := app.NewWindow("Download It!")
 	mainTitle := widget.NewLabel("Download It!")
@@ -42,7 +42,7 @@ func NewApp() *MyApp {
 	pBar := widget.NewProgressBar()
 	pBar.Max = 99.99
 
-	return &MyApp{
+	return &DownloadIt{
 		app:       app,
 		window:    window,
 		mainTitle: mainTitle,
@@ -51,27 +51,27 @@ func NewApp() *MyApp {
 	}
 }
 
-func (app *MyApp) resizeWindow(size fyne.Size) {
+func (app *DownloadIt) resizeWindow(size fyne.Size) {
 	app.window.Resize(fyne.NewSize(size.Width, size.Height))
 }
 
-func (app *MyApp) run() {
+func (app *DownloadIt) run() {
 	app.window.ShowAndRun()
 }
 
-func (app *MyApp) setupContent() {
+func (app *DownloadIt) setupContent() {
 	app.resizeWindow(DEFAULT_SIZE)
 	app.setupDownload()
 	app.window.SetContent(container.NewVBox(app.mainTitle, app.urlEntry, app.pBar, app.downloadBtn))
 }
 
-func (app *MyApp) setupDownload() {
+func (app *DownloadIt) setupDownload() {
 	app.downloadBtn = widget.NewButton("Download", func() {
 		app.downloadFile()
 	})
 }
 
-func (app *MyApp) downloadFile() {
+func (app *DownloadIt) downloadFile() {
 	app.mainTitle.SetText("Downloading...")
 	app.resizeWindow(OPENING_FILE_SIZE)
 	app.updateDownloadBtnText("Downloading...", true)
@@ -110,7 +110,7 @@ func (app *MyApp) downloadFile() {
 	}, app.window)
 }
 
-func (app *MyApp) updateDownloadBtnText(text string, disable bool) {
+func (app *DownloadIt) updateDownloadBtnText(text string, disable bool) {
 	fyne.Do(func() {
 		app.downloadBtn.SetText(text)
 
