@@ -1,0 +1,6 @@
+[Details]
+  Icon = "icon.png"
+  Name = "downloadit"
+  ID = "com.downloadit.app"
+  Version = "1.0.0"
+  Build = 4
