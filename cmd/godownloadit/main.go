@@ -72,10 +72,8 @@ func (app *DownloadIt) setupDownload() {
 }
 
 func (app *DownloadIt) downloadFile() {
-	app.mainTitle.SetText("Downloading...")
+	app.updateStartAndFinishedState(true)
 	app.resizeWindow(OPENING_FILE_SIZE)
-	app.updateDownloadBtnText("Downloading...", true)
-	defer app.updateDownloadBtnText("Download", false)
 
 	dialog.ShowFileSave(func(writer fyne.URIWriteCloser, err error) {
 		defer app.resizeWindow(DEFAULT_SIZE)
@@ -105,7 +103,7 @@ func (app *DownloadIt) downloadFile() {
 				return
 			}
 
-			dialog.ShowInformation("Download completed", "File downloaded successfully!", app.window)
+			app.updateStartAndFinishedState(false)
 		}()
 	}, app.window)
 }
@@ -121,4 +119,16 @@ func (app *DownloadIt) updateDownloadBtnText(text string, disable bool) {
 
 		app.downloadBtn.Enable()
 	})
+}
+
+func (app *DownloadIt) updateStartAndFinishedState(starting bool) {
+	if starting {
+		app.mainTitle.SetText("Downloading...")
+		app.updateDownloadBtnText("Downloading...", true)
+		return
+	}
+
+	dialog.ShowInformation("Download completed", "File downloaded successfully!", app.window)
+	app.updateDownloadBtnText("Download", false)
+	app.pBar.SetValue(0.0)
 }
