@@ -85,6 +85,11 @@ func (app *DownloadIt) setupDownload() {
 }
 
 func (app *DownloadIt) downloadFile() {
+	if app.urlEntry.Text == "" {
+		dialog.ShowInformation("URL required", "Please enter a valid URL to download.", app.window)
+		return
+	}
+
 	app.updateStartAndFinishedState(true)
 	app.resizeWindow(OPENING_FILE_SIZE)
 
