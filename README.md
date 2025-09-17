@@ -1,7 +1,7 @@
 DownloadIt!
 ---
 
-Example app created using [Fyne](https://fyne.io/).
+Example app created with [Fyne](https://fyne.io/).
 
 Pre-reqs
 - Fyne lib
